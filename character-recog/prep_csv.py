@@ -32,4 +32,7 @@ if __name__ == "__main__":
     df_train.to_csv(config.TRAIN_CSV)
     df_val.to_csv(config.VAL_CSV)
     print(len(df_train),len(df_val))
-    print(df_train.nunique(),df_val.nunique())
+    print(df_train.nunique())
+    print(df_train.label.unique())
+    print(df_val.nunique())
+    print(df_val.label.unique())
