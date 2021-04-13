@@ -2,7 +2,7 @@ import os
 import torch
 
 LR = 0.0001
-NUM_EPOCHS = 100
+NUM_EPOCHS = 20
 BATCH_SIZE = 128
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
