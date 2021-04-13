@@ -7,9 +7,9 @@ BATCH_SIZE = 128
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 NUM_CLASSES = 36
-TRAIN_IMAGES = "/content/drive/MyDrive/competitions/mosaic-r2/charac_dataset/CNN letter Dataset"
-TRAIN_CSV = '/content/drive/MyDrive/competitions/mosaic-r2/char_train.csv'
-VAL_CSV = '/content/drive/MyDrive/competitions/mosaic-r2/char_val.csv'
+TRAIN_IMAGES = "/content/drive/MyDrive/competitions/mosaic-r2/dataset_characters"
+TRAIN_CSV = '/content/drive/MyDrive/competitions/mosaic-r2/char_train_seg.csv'
+VAL_CSV = '/content/drive/MyDrive/competitions/mosaic-r2/char_val_seg.csv'
 
 MAPPING = {
     '0':0,
