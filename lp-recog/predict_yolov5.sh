@@ -4,10 +4,10 @@
 cd /content/yolov5
 
 #predict
-SOURCE="/content/predictions/P1033666/ext_images"
-PROJECT="/content/predictions/P1033666/yolov5"
-NAME="yolov5"
-WEIGHTS="/content/drive/MyDrive/competitions/mosaic-r2/weights/yolov5_s/exp2/weights/best.pt"
+SOURCE=$1
+PROJECT=$2
+NAME=$3
+WEIGHTS=$4
 CONF="0.4"
 
 echo "Source of images : $SOURCE"
