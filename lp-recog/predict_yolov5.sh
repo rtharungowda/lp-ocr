@@ -4,8 +4,8 @@
 cd /content/yolov5
 
 #predict
-SOURCE="/content/Diatom-Non-neuronal-Cognition/Dataset/30_bbg/imgs"
-WEIGHTS="/content/drive/MyDrive/Bacillaria_Paradoxa/yolo_weights/30_bbg_images/exp2/tt_split_1000.pt"
+SOURCE="/content/drive/MyDrive/competitions/mosaic-r2/test_car_lp_det"
+WEIGHTS="/content/drive/MyDrive/competitions/mosaic-r2/weights/yolov5_s/exp2/weights/best.pt"
 CONF="0.4"
 
 echo "Source of images : $SOURCE"
