@@ -91,7 +91,8 @@ def predict_charac(img):
 
 if __name__ == "__main__":
     folder = "/content/drive/MyDrive/competitions/mosaic-r2/test_charac"
-    paths = glob.glob(folder+"/*.jpeg")
+    # paths = glob.glob(folder+"/*.jpeg")
+    paths = ["/content/drive/MyDrive/competitions/mosaic-r2/test_charac/zero.jpeg"]
     # imgs = perform_segmentation(path)
     for path in paths:
         print(path)
