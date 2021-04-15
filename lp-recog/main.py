@@ -10,12 +10,14 @@ NAME=""
 
 def detect(source):
     global PROJECT, NAME
-    root = "/content/predictions/"
-    if os.path.isdir(root) == False:
-        os.mkdir(root)
+    # root = "/content/predictions/"
+    root = os.path.join(os.path.dirname(__file__),'predictions')
+    if os.path.isdir(root)==True:
+        shutil.rmtree(root, ignore_errors=True)
+    os.mkdir(root)
 
     file_name = os.path.basename(source).split('.')[0]
-    PROJECT = os.path.join("/content/predictions",file_name)
+    PROJECT = os.path.join(root,file_name)
 
     if os.path.isdir(PROJECT) == True:
         shutil.rmtree(PROJECT, ignore_errors=True)  
@@ -101,9 +103,15 @@ def crop(image, label, seg_path, img_name):
         cv2.imwrite(save_path,img)
 
 if __name__ == "__main__":
-    source="/content/drive/MyDrive/competitions/mosaic-r2/test_car_lp_det/P1033666.mp4"
+    source="/content/drive/MyDrive/competitions/mosaic-r2/test_car_lp_det/several2.jpeg"
     detect(source)
     if source[-3:]=="mp4":
         from_video(source)
     else:
         from_image(source)
+    print()
+    print("*"*10)
+    print("-"*10)
+    print("results saved at")
+    print(f"yolov5 predictions saved at {PROJECT}/{NAME} and labels at {PROJECT}/{NAME}/labels")
+    print(f"segmented and recognised license plate ocr saved at {PROJECT}/segmented")
