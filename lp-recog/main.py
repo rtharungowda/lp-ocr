@@ -1,13 +1,14 @@
 import os
 import cv2
 import shutil
+import glob
 
 WEIGHTS="/content/drive/MyDrive/competitions/mosaic-r2/weights/yolov5_s/exp2/weights/best.pt"
 CONF="0.4"
 PROJECT=""
 NAME=""
 
-def img(source):
+def detect(source):
     global PROJECT, NAME
     root = "/content/predictions/"
     if os.path.isdir(root) == False:
@@ -21,14 +22,29 @@ def img(source):
     os.mkdir(PROJECT)
 
     NAME = "yolo_detection"
-
     # print(PROJECT,NAME)
-    
     os.system(f"python3 detect.py --source {source} --weights {WEIGHTS} --conf {CONF} --device 'cpu' --save-txt --project {PROJECT} --name {NAME} --exist-ok")
 
-    crop(source)
+def crop_vedio(source):
 
-def crop(source):
+    label_path = os.path.join(PROJECT,NAME,"labels")
+    label_txts = glob.glob(label_path+"/*.txt")
+
+    frames = []
+    for txt in label_txts:
+        frames.append(int(os.path.basename(txt).split('_')[-1].split('.')[0]))
+    frames.sort()
+    print(frames)
+
+    vidObj = cv2.VideoCapture(source)
+    count = 1
+    success = 1
+    while True:
+        success, image = vidObj.read()
+        if success:
+
+
+def crop(source,img):
     img_name = os.path.basename(source).split('.')[0]
     image = cv2.imread(source)
     height = image.shape[0]
@@ -64,12 +80,14 @@ def crop(source):
         #-----segementation----
         # img = segmentation(img)
         #------
-        save_path = os.path.join(seg_path,f"lp_{i}.jpg")
+        save_path = os.path.join(seg_path,f"{img_name}_{i}.jpg")
         cv2.imwrite(save_path,img)
 
 if __name__ == "__main__":
-    source="/content/drive/MyDrive/competitions/mosaic-r2/test_car_lp_det/several2.jpeg"
+    source="/content/drive/MyDrive/competitions/mosaic-r2/test_car_lp_det/P1033666.mp4"
+    detect(source)
     if source[-3:]=="mp4":
-        pass
+        crop_vedio(source)
     else:
-        img(source)
+        # img(source)
+        pass

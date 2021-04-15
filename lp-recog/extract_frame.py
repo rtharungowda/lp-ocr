@@ -4,7 +4,7 @@ import os
 # Function to extract frames
 def FrameCapture(source, save_path):
     vidObj = cv2.VideoCapture(source)
-    count = 0
+    count = 1
     success = 1
     while True:
         success, image = vidObj.read()
