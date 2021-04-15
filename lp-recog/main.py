@@ -33,7 +33,7 @@ def from_video(source):
     for txt in label_txts:
         frames.append(int(os.path.basename(txt).split('_')[-1].split('.')[0]))
     frames.sort()
-    print(frames)
+    print(f"license plate detected in\n",frames)
 
     vidObj = cv2.VideoCapture(source)
     video_name = os.path.basename(source).split('.')[0]
