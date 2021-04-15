@@ -25,8 +25,7 @@ def detect(source):
     # print(PROJECT,NAME)
     os.system(f"python3 detect.py --source {source} --weights {WEIGHTS} --conf {CONF} --device 'cpu' --save-txt --project {PROJECT} --name {NAME} --exist-ok")
 
-def crop_vedio(source):
-
+def from_video(source):
     label_path = os.path.join(PROJECT,NAME,"labels")
     label_txts = glob.glob(label_path+"/*.txt")
 
@@ -37,18 +36,30 @@ def crop_vedio(source):
     print(frames)
 
     vidObj = cv2.VideoCapture(source)
+    video_name = os.path.basename(source).split('.')[0]
+
+    seg_path = os.path.join(PROJECT,"segmented")
+    if os.path.isdir(seg_path)==True:
+        shutil.rmtree(seg_path, ignore_errors=True)
+    os.mkdir(seg_path)
+
     count = 1
     success = 1
     while True:
         success, image = vidObj.read()
-        if success:
+        if success == 0:
+            break
+        elif count in frames:
+            label_path = os.path.join(PROJECT,NAME,"labels")
+            img_name = video_name+f'_{str(count)}'
+            label_name = img_name+'.txt'
+            label = os.path.join(label_path,label_name)
+            crop(image, label, seg_path, img_name)
+        count+=1
 
-
-def crop(source,img):
+def from_image(source):
     img_name = os.path.basename(source).split('.')[0]
     image = cv2.imread(source)
-    height = image.shape[0]
-    width = image.shape[1]
     # print(height,width)
     label_path = os.path.join(PROJECT,NAME,"labels")
     label = os.path.join(label_path,img_name+'.txt')
@@ -58,11 +69,17 @@ def crop(source,img):
         shutil.rmtree(seg_path, ignore_errors=True)
     os.mkdir(seg_path)
 
+    crop(image, label, seg_path, img_name)
+
+def crop(image, label, seg_path, img_name):
     # print(label)
     with open(label,'r') as fi:
         lines = fi.readlines()
 
     # print(lines)
+
+    height = image.shape[0]
+    width = image.shape[1]
     
     for i,line in enumerate(lines):
         param = line.split(' ')
@@ -87,7 +104,6 @@ if __name__ == "__main__":
     source="/content/drive/MyDrive/competitions/mosaic-r2/test_car_lp_det/P1033666.mp4"
     detect(source)
     if source[-3:]=="mp4":
-        crop_vedio(source)
+        from_video(source)
     else:
-        # img(source)
-        pass
+        from_image(source)
