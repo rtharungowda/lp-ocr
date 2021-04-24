@@ -1,6 +1,11 @@
 import glob
 
 def rename(path):
+    """correct labels while mergining different datasets, make all labels 0
+
+    Args:
+        path (str): folder containing text files as labels
+    """
     files = glob.glob(path+"/*.txt")
     # files = ['/content/drive/MyDrive/competitions/mosaic-r2/license_plate_yolov5/valid/labels/Cars0_png.rf.c125d0b60039d24a93e99a84f5e7504d.txt']
     for f in files:
